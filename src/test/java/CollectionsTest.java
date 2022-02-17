@@ -1,7 +1,9 @@
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 
 public class CollectionsTest
 {
@@ -65,7 +67,87 @@ public class CollectionsTest
         assertTrue(collect.listHashSets(numbers,numbers1).isEmpty());
     }
 
-    
+    @Test
+    public void checkmaxage()
+    {
+        CollectionsDemo collect = new CollectionsDemo();
+        ArrayList<Human> humans = new ArrayList<>();
+        Human human1 = new Human("Артоновенко", "Марк", "Михайлович", 19);
+        Human human2 = new Human("Артоновенко","Вероника","Николаевна", 19);
+        Human human3 = new Human("Ортогональка","Петр","Сергеевич", 20);
+        humans.add(human1);
+        humans.add(human2);
+        humans.add(human3);
+        humans = collect.maxAgeList(humans);
+        assertEquals(humans.get(0).getAge(), 20);
+    }
+
+    @Test
+    public void hashsettest()
+    {
+        CollectionsDemo collect = new CollectionsDemo();
+        HashSet<Human> hum =  new HashSet<>();
+        int a = 19, b = 20, c = 18;
+        Human human1 = new Human("Артоновенко", "Марк", "Михайлович", 19);
+        Human human2 = new Human("Артоновенко","Вероника","Николаевна", 19);
+        Human human3 = new Human("Ортогональка","Петр","Сергеевич", 20);
+
+        HashMap<Integer, Human> humanHashMap = new HashMap<>();
+        humanHashMap.put(22, human1);
+        humanHashMap.put(20, human2);
+        humanHashMap.put(21, human3);
+
+        HashSet<Integer> hashSet = new HashSet<>();
+        hashSet.add(a);
+        hashSet.add(b);
+        hashSet.add(c);
+
+        hum = collect.setIdContained(humanHashMap, hashSet);
+
+        assertEquals(hum.size(), 1);
+    }
+
+    @Test
+    public void hashsetagetest()
+    {
+        CollectionsDemo collect = new CollectionsDemo();
+        ArrayList<Integer> hum =  new ArrayList<>();
+        HashMap<Integer, Human> humanHashMap = new HashMap<>();
+
+        Human human1 = new Human("Артоновенко", "Марк", "Михайлович", 17);
+        Human human2 = new Human("Артоновенко","Вероника","Николаевна", 19);
+        Human human3 = new Human("Ортогональка","Петр","Сергеевич", 20);
+
+        humanHashMap.put(22, human1);
+        humanHashMap.put(20, human2);
+        humanHashMap.put(21, human3);
+
+        hum = collect.ageAtLeastEighteen(humanHashMap);
+        assertEquals(hum.size(), 2);
+    }
+
+    @Test
+    public void hashagetaken()
+    {
+        CollectionsDemo collect = new CollectionsDemo();
+        ArrayList<Integer> hum =  new ArrayList<>();
+        HashMap<Integer, Human> humanHashMap = new HashMap<>();
+        Map<Integer, Integer> humanHashMap1 = new HashMap<>();
+
+        Human human1 = new Human("Артоновенко", "Марк", "Михайлович", 17);
+        Human human2 = new Human("Артоновенко","Вероника","Николаевна", 19);
+        Human human3 = new Human("Ортогональка","Петр","Сергеевич", 20);
+
+        humanHashMap.put(20, human1);
+        humanHashMap.put(22, human2);
+        humanHashMap.put(21, human3);
+
+        humanHashMap1 =  collect.idAndAge(humanHashMap);
+
+
+        assertEquals(humanHashMap1.toString(), "{20=17, 21=20, 22=19}");
+    }
+
 
 
 }

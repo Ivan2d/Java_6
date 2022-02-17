@@ -94,17 +94,15 @@ public class CollectionsDemo
         return result;
     }
 
-    public static Map<Integer, Integer> idAndAge(Map<Integer,Human> maps) {
+    public static Map<Integer, Integer> idAndAge(Map<Integer, Human> maps) {
         Map<Integer, Integer> result = new HashMap<>();
-        for (Map.Entry<Integer, Human> entry : maps.entrySet())
-        {
+        for (Map.Entry<Integer, Human> entry : maps.entrySet()) {
             Integer key = entry.getKey();
             Human human = entry.getValue();
             result.put(key, human.getAge());
         }
         return result;
     }
-
     public static Map<Integer, Human> compareAgeAndPerson(int age, ArrayList<Human> humans)
     {
         Map<Integer, Human> result = new HashMap<>();
