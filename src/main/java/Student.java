@@ -4,7 +4,9 @@ import java.util.Iterator;
 public class Student extends Human
 {
     private String faculty;
-    public Student(String surname, String name, String patronymic, int age, String faculty){
+
+    public Student(String surname, String name, String patronymic, int age, String faculty)
+    {
         super(surname,name,patronymic, age);
         this.faculty = faculty;
     }
@@ -15,6 +17,11 @@ public class Student extends Human
 
     public void setFaculty(String faculty) {
         this.faculty = faculty;
+    }
+
+    public int getAllNamesize()
+    {
+        return getName().length() + getPatronymic().length() + getSurname().length();
     }
 
 }

@@ -1,9 +1,7 @@
 import java.util.*;
 
-public class CollectionsDemo
-{
-
-    public static int countStringList(ArrayList<String> list, char a) {
+    public class CollectionsDemo {
+    public static int countStringList(List<String> list, char a) {
         int count = 0;
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).toCharArray()[0] == a) {
@@ -13,80 +11,82 @@ public class CollectionsDemo
         return count;
     }
 
-    public static ArrayList listDemoNamesakes(ArrayList<Human> listHumans, Human human) {
+    public static List<Human> listNamesakes(List<Human> listHumans, Human human) {
         ArrayList<Human> namesakes = new ArrayList<>();
+
         for (int i = 0; i < listHumans.size(); i++) {
-            if (listHumans.get(i).getSurname() == human.getSurname()) {
+            if (listHumans.get(i).getSurname().equals(human.getSurname())) {
                 namesakes.add(listHumans.get(i));
             }
         }
-
         return namesakes;
     }
 
-    public static ArrayList<Human> copyArrayList(ArrayList<Human> humans, Human human)
-    {
-        ArrayList<Human> humans1 = new ArrayList<>(humans);
-        humans1.remove(human);
-        return humans1;
+    public static List<Human> copyArrayList(List<Human> humans, Human human) {
+        ArrayList<Human> humans1 = new ArrayList<>();
 
-    }
-
-    public static ArrayList<HashSet<Integer>> listHashSets(ArrayList<HashSet<Integer>> hashSets, HashSet<Integer> hashSet)
-    {
-        ArrayList<HashSet<Integer>> hashSets1 = new ArrayList<>();
-        for (int i = 0; i < hashSets.size(); i++) {
-            if (hashSets.get(i) == hashSet) {
-                continue;
+        for (Human hum : humans) {
+            if (!hum.equals(human)) {
+                humans1.add(hum);
             }
-            hashSets1.add(hashSets.get(i));
         }
-        return hashSets1;
+        return humans1;
     }
 
-    public static ArrayList<Human> maxAgeList(ArrayList<Human> humans)
-    {
-        int maxAge = 0;
-        ArrayList<Human> result = new ArrayList<>();
+    public static List<Set<Integer>> listHashSets(List<Set<Integer>> hashSets, Set<Integer> hashSet) {
+        ArrayList<Set<Integer>> resik = new ArrayList<>();
 
-        for (int i = 0; i < humans.size(); i++)
-        {
-            if (humans.get(i).getAge() > maxAge)
-            {
+        for (Set<Integer> set : hashSets) {
+            HashSet<Integer> copyset = new HashSet<Integer>(set);
+            set.removeAll(hashSet);
+
+            if (copyset.equals(set)) {
+                resik.add(set);
+            }
+        }
+        return resik;
+    }
+
+    public static List<Student> maxAgeList(List<Student> humans) {
+        int maxAge = 0;
+
+        ArrayList<Student> result = new ArrayList<>();
+
+        for (int i = 0; i < humans.size(); i++) {
+            if (humans.get(i).getAge() > maxAge) {
                 maxAge = humans.get(i).getAge();
             }
-        }
 
-        for (Human h : humans)
-        {
-            if (h.getAge() == maxAge)
-            {
-                result.add(h);
+        }
+        for (int i = 0; i < humans.size(); i++) {
+            if (humans.get(i).getAge() == maxAge) {
+                result.add(humans.get(i));
             }
         }
         return result;
     }
 
-    public static HashSet<Human> setIdContained(Map<Integer, Human> maps, HashSet<Integer> ids) {
+    public static Set<Human> setIdContained(Map<Integer, Human> maps, Set<Integer> ids) {
         HashSet<Human> result = new HashSet<>();
+
         for (Map.Entry<Integer, Human> entry : maps.entrySet()) {
             Integer key = entry.getKey();
             Human human = entry.getValue();
-            for (int i = 0; i < ids.size(); i++) {
-                if (ids.contains(key)) {
-                    result.add(human);
-                }
+
+            if (ids.contains(key)) {
+                result.add(human);
             }
         }
         return result;
     }
 
-    public static ArrayList<Integer> ageAtLeastEighteen(Map<Integer, Human> maps) {
-        ArrayList<Integer> result = new ArrayList<>();
-        for (Map.Entry<Integer, Human> entry : maps.entrySet())
-        {
+    public static List<Integer> ageAtLeastEighteen(Map<Integer, Human> maps) {
+        List<Integer> result = new ArrayList<>();
+
+        for (Map.Entry<Integer, Human> entry : maps.entrySet()) {
             Integer key = entry.getKey();
             Human human = entry.getValue();
+
             if (human.getAge() >= 18) {
                 result.add(key);
             }
@@ -96,6 +96,7 @@ public class CollectionsDemo
 
     public static Map<Integer, Integer> idAndAge(Map<Integer, Human> maps) {
         Map<Integer, Integer> result = new HashMap<>();
+
         for (Map.Entry<Integer, Human> entry : maps.entrySet()) {
             Integer key = entry.getKey();
             Human human = entry.getValue();
@@ -103,15 +104,41 @@ public class CollectionsDemo
         }
         return result;
     }
-    public static Map<Integer, Human> compareAgeAndPerson(int age, ArrayList<Human> humans)
-    {
-        Map<Integer, Human> result = new HashMap<>();
-        for (Human human : humans) {
-            if (human.getAge() == age) {
-                result.put(age, human);
+
+    public static Map<Integer, List<Human>> compareAgeAndPerson(Set<Human> humans) {
+        Map<Integer, List<Human>> result = new HashMap<>();
+
+        for (Human hum : humans) {
+            List<Human> ages = new ArrayList<>();
+
+            for (Human person : humans) {
+                if (hum.getAge() == person.getAge()) {
+                    ages.add(person);
+                }
             }
+
+            result.put(hum.getAge(), ages);
         }
+
         return result;
     }
 
-}
+    public static List<Student> sortlist (Set<Student> humans)
+    {
+        ArrayList<Student> iterstudents = new ArrayList<>();
+        Queue<Student> students = new PriorityQueue<>(new StudentComparator());
+
+        for(Student man: humans)
+        {
+            students.add(man);
+        }
+
+        for(Student man: students)
+        {
+            iterstudents.add(man);
+        }
+
+        return iterstudents;
+    }
+
+    }

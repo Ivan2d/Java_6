@@ -1,3 +1,4 @@
+import java.util.Iterator;
 import java.util.Objects;
 
     public class Human {
@@ -61,4 +62,5 @@ import java.util.Objects;
     public int hashCode() {
         return Objects.hash(surname, name, patronymic, age);
     }
+
 }

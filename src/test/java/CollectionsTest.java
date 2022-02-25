@@ -1,9 +1,6 @@
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
+import java.util.*;
 
 public class CollectionsTest
 {
@@ -26,14 +23,14 @@ public class CollectionsTest
     public void checkListDemo()
     {
         CollectionsDemo collect = new CollectionsDemo();
-        ArrayList<Human> humans = new ArrayList<>();
-        ArrayList<Human> humana = new ArrayList<>();
+        List<Human> humans = new ArrayList<>();
+        List<Human> humana = new ArrayList<>();
         Human human1 = new Human("Артоновенко", "Марк", "Михайлович", 19);
         Human human2 = new Human("Артоновенко","Вероника","Николаевна", 19);
         Human human3 = new Human("Ортогональка","Петр","Сергеевич", 20);
         humans.add(human1);
         humans.add(human2);
-        humana = collect.listDemoNamesakes(humans, human3);
+        humana = collect.listNamesakes(humans, human3);
         assertTrue(humana.isEmpty());
     }
 
@@ -48,33 +45,48 @@ public class CollectionsTest
         humans.add(human1);
         humans.add(human2);
         humans.add(human3);
-        humans = collect.copyArrayList(humans, human3);
-        assertEquals(humans.size(),2);
+        assertEquals(humans.size(),3);
     }
 
     @Test
-    public void checkSet()
-    {
-        CollectionsDemo collect = new CollectionsDemo();
-        ArrayList<HashSet<Integer>> numbers = new ArrayList<>();
-        HashSet<Integer> numbers1 =  new HashSet<>();
-        int a = 1, b = 2, c = 2;
-        numbers1.add(a);
-        numbers.add(numbers1);
-        numbers1.add(b);
-        numbers.add(numbers1);
-        numbers1.add(c);
-        assertTrue(collect.listHashSets(numbers,numbers1).isEmpty());
-    }
-
-    @Test
-    public void checkmaxage()
+    public void checkHumanHere()
     {
         CollectionsDemo collect = new CollectionsDemo();
         ArrayList<Human> humans = new ArrayList<>();
         Human human1 = new Human("Артоновенко", "Марк", "Михайлович", 19);
         Human human2 = new Human("Артоновенко","Вероника","Николаевна", 19);
         Human human3 = new Human("Ортогональка","Петр","Сергеевич", 20);
+        humans.add(human1);
+        humans.add(human2);
+        humans.add(human3);
+        assertEquals(collect.copyArrayList(humans, human1).size(), 2);
+    }
+
+    @Test
+    public void checkSet2()
+    {
+        ArrayList<Set<Integer>> l = new ArrayList<>();
+        HashSet<Integer> a = new HashSet<>(List.of(1,3,5));
+        HashSet<Integer> b = new HashSet<>(List.of(2, 4, 6));
+        HashSet<Integer> c = new HashSet<>(List.of(7, 8, 9));
+        ArrayList<Set<Integer>> k = new ArrayList<>();
+        k.add(a);
+        k.add(b);
+        l.add(a);
+        l.add(b);
+
+        assertEquals(CollectionsDemo.listHashSets(l, c), k);
+    }
+
+
+@Test
+    public void checkmaxage()
+    {
+        CollectionsDemo collect = new CollectionsDemo();
+        List<Student> humans = new ArrayList<>();
+        Student human1 = new Student("Артоновенко", "Марк", "Михайлович", 18, "omgu");
+        Student human2 = new Student("Артоновенко","Вероника","Николаевна", 19, "omgu");
+        Student human3 = new Student("Ортогональка","Петр","Сергеевич", 20, "Omgu");
         humans.add(human1);
         humans.add(human2);
         humans.add(human3);
@@ -86,8 +98,10 @@ public class CollectionsTest
     public void hashsettest()
     {
         CollectionsDemo collect = new CollectionsDemo();
-        HashSet<Human> hum =  new HashSet<>();
+        Set<Human> hum =  new HashSet<>();
+
         int a = 19, b = 20, c = 18;
+
         Human human1 = new Human("Артоновенко", "Марк", "Михайлович", 19);
         Human human2 = new Human("Артоновенко","Вероника","Николаевна", 19);
         Human human3 = new Human("Ортогональка","Петр","Сергеевич", 20);
@@ -111,7 +125,7 @@ public class CollectionsTest
     public void hashsetagetest()
     {
         CollectionsDemo collect = new CollectionsDemo();
-        ArrayList<Integer> hum =  new ArrayList<>();
+        List<Integer> hum =  new ArrayList<>();
         HashMap<Integer, Human> humanHashMap = new HashMap<>();
 
         Human human1 = new Human("Артоновенко", "Марк", "Михайлович", 17);
@@ -130,8 +144,8 @@ public class CollectionsTest
     public void hashagetaken()
     {
         CollectionsDemo collect = new CollectionsDemo();
-        ArrayList<Integer> hum =  new ArrayList<>();
-        HashMap<Integer, Human> humanHashMap = new HashMap<>();
+        List<Integer> hum =  new ArrayList<>();
+        Map<Integer, Human> humanHashMap = new HashMap<>();
         Map<Integer, Integer> humanHashMap1 = new HashMap<>();
 
         Human human1 = new Human("Артоновенко", "Марк", "Михайлович", 17);
@@ -146,6 +160,55 @@ public class CollectionsTest
 
 
         assertEquals(humanHashMap1.toString(), "{20=17, 21=20, 22=19}");
+    }
+
+    @Test
+    public void hashagetaken1()
+    {
+        CollectionsDemo collect = new CollectionsDemo();
+        List<Integer> hum =  new ArrayList<>();
+        Map<Integer, List<Human>> humanHashMap1 = new HashMap<>();
+        Set<Human> people = new HashSet<>();
+
+        Human human1 = new Human("ы", "ы", "ыыы", 17);
+        Human human2 = new Human("ы","ы","ы", 17);
+        Human human3 = new Human("ы","ы","ыы", 20);
+
+        people.add(human1);
+        people.add(human2);
+        people.add(human3);
+
+        humanHashMap1 =  collect.compareAgeAndPerson(people);
+
+
+        assertEquals(humanHashMap1.size(), 2);
+    }
+
+    @Test
+    public void sortstudents()
+    {
+        CollectionsDemo collect = new CollectionsDemo();
+        List<Student> hum =  new ArrayList<>();
+        Set<Student> people = new HashSet<>();
+
+        Student human1 = new Student("ы", "ыы", "ы", 18, "omgu");
+        Student human2 = new Student("ы","ы","ыыы", 19, "omgu");
+        Student human3 = new Student("ы","ы","ы", 20, "Omgu");
+
+        people.add(human1);
+        people.add(human2);
+        people.add(human3);
+
+        hum =  collect.sortlist(people);
+
+        Iterator<Student> it = hum.iterator();
+        while (it.hasNext())
+        {
+            System.out.println(it.next());
+
+        }
+
+        assertEquals(hum, 2);
     }
 
 
