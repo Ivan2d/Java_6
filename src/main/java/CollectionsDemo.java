@@ -1,17 +1,35 @@
 import java.util.*;
 
-    public class CollectionsDemo {
-    public static int countStringList(List<String> list, char a) {
+import static java.util.Comparator.naturalOrder;
+
+public class CollectionsDemo
+{
+    public static int countStringList(List<String> list, char a)
+    {
         int count = 0;
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).toCharArray()[0] == a) {
+
+        List<String> list1 = new ArrayList<>();
+
+        for(String str: list)
+        {
+            if (!(str.equals("")))
+            {
+                list1.add(str);
+            }
+        }
+
+        for(String str: list1)
+        {
+            if (str.charAt(0) == a)
+            {
                 count++;
             }
         }
         return count;
     }
 
-    public static List<Human> listNamesakes(List<Human> listHumans, Human human) {
+    public static List<Human> listNamesakes(List<Human> listHumans, Human human)
+    {
         ArrayList<Human> namesakes = new ArrayList<>();
 
         for (int i = 0; i < listHumans.size(); i++) {
@@ -22,35 +40,41 @@ import java.util.*;
         return namesakes;
     }
 
-    public static List<Human> copyArrayList(List<Human> humans, Human human) {
+    public static List<Human> copyArrayList(List<Human> humans, Human human)
+    {
         ArrayList<Human> humans1 = new ArrayList<>();
 
         for (Human hum : humans) {
-            if (!hum.equals(human)) {
-                humans1.add(hum);
+            if (!hum.equals(human))
+            {
+                Human hum1 = new Human(hum);
+                humans1.add(hum1);
             }
         }
         return humans1;
     }
 
-    public static List<Set<Integer>> listHashSets(List<Set<Integer>> hashSets, Set<Integer> hashSet) {
-        ArrayList<Set<Integer>> resik = new ArrayList<>();
+public static List<HashSet<Integer>> listHashSets(List<HashSet<Integer>> hashSets, Set<Integer> hashSet)
+{
+    List<HashSet<Integer>> list = new ArrayList<>(hashSets);
+    List<HashSet<Integer>> resik = new ArrayList<>();
 
-        for (Set<Integer> set : hashSets) {
-            HashSet<Integer> copyset = new HashSet<Integer>(set);
-            set.removeAll(hashSet);
+    for (HashSet<Integer> set : list)
+    {
+        HashSet<Integer> copyset = new HashSet<Integer>(set);
+        set.removeAll(hashSet);
 
-            if (copyset.equals(set)) {
-                resik.add(set);
-            }
+        if (copyset.equals(set)) {
+            resik.add(set);
         }
-        return resik;
     }
+    return resik;
+}
 
-    public static List<Student> maxAgeList(List<Student> humans) {
+    public static List<Human> maxAgeList(List<Human> humans) {
         int maxAge = 0;
 
-        ArrayList<Student> result = new ArrayList<>();
+        ArrayList<Human> result = new ArrayList<>();
 
         for (int i = 0; i < humans.size(); i++) {
             if (humans.get(i).getAge() > maxAge) {
@@ -123,22 +147,22 @@ import java.util.*;
         return result;
     }
 
-    public static List<Student> sortlist (Set<Student> humans)
+    public static List<Student> sortlist(Set<Student> humans)
     {
-        ArrayList<Student> iterstudents = new ArrayList<>();
-        Queue<Student> students = new PriorityQueue<>(new StudentComparator());
+        List<Student> l = new ArrayList<>();
+        Comparator<Student> pcomp = new StudCmpSur().thenComparing(new StudCmp()).thenComparing(new StudCmpPrist());
+        TreeSet<Student> people = new TreeSet(pcomp);
 
-        for(Student man: humans)
+        for(Student n: humans)
         {
-            students.add(man);
+            people.add(n);
         }
 
-        for(Student man: students)
+        for(Student m: people)
         {
-            iterstudents.add(man);
+            l.add(m);
         }
 
-        return iterstudents;
+        return l;
     }
-
-    }
+}
